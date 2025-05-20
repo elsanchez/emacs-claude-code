@@ -1,6 +1,6 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
-# Timestamp: "2025-05-18 02:46:19 (ywatanabe)"
+# Timestamp: "2025-05-21 00:42:09 (ywatanabe)"
 # File: ./.claude/to_claude/bin/safe_rm.sh
 
 THIS_DIR="$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)"
@@ -39,7 +39,7 @@ safe_rm() {
     for path in "${paths[@]}"; do
         if [ -e "$path" ]; then
             local dir=$(dirname "$path")
-            local tgt_dir="$dir/.old/"
+            local tgt_dir="$dir/.old"
             local filename=$(basename "$path")
             local ext="${filename##*.}"
             local name="${filename%.*}"
