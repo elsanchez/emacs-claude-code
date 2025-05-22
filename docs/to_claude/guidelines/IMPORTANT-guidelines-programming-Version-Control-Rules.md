@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-20 05:28:01
+!-- Timestamp: 2025-05-22 23:34:25
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.claude/to_claude/guidelines/IMPORTANT-guidelines-programming-Version-Control-Rules.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/IMPORTANT-guidelines-programming-Version-Control-Rules.md
 !-- --- -->
 
 ## Test-Driven Development
@@ -32,7 +32,7 @@ This ensures the quality of the commited contents
 When conflicts found, check if they are minor problems. If it is a tiny problem solve it immediately. Otherwise, let's work on in a safe, dedicated manner
 
 ## Before Git Handling
-Let me know your opinion, available plans, and reasons in the order of your recommendation
+Let me know your opinion, available plans (e.g., Plan A, Plan B, and Plan C), and reasons in the order of your recommendation
 Once agreed plans determined, process git commands baesd on the agreements
 
 ## Rollback
