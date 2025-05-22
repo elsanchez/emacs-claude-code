@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-21 05:08:19
+!-- Timestamp: 2025-05-18 21:53:30
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/IMPORTANT-guidelines-programming-Test-Driven-Workflow-Rules.md
+!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/guidelines_programming_test_driven_workflow_rules.md
 !-- --- -->
 
 ## !!! IMPORTANT !!! Test-Driven Development (TDD) Workflow !!! IMPORTANT !!!

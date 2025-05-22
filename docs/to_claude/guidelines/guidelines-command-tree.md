@@ -1,20 +1,93 @@
 <!-- ---
-!-- Timestamp: 2025-05-21 00:31:51
+!-- Timestamp: 2025-05-21 02:41:23
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.claude/to_claude/guidelines/guidelines-command-tree.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/guidelines-command-tree.md
 !-- --- -->
 
-Tree can use the following options.
+# Tree Command Guidelines
+
+## Table of Contents
+- [Overview](#overview)
+- [Common Usage Patterns](#common-usage-patterns)
+- [Examples](#examples)
+- [Full Command Reference](#full-command-reference)
+
+## Overview
+The `tree` command displays the directory structure in a visual tree format, making it easier to understand project organization. Use this command regularly to maintain awareness of the codebase structure.
+
+## Common Usage Patterns
+
+| Option | Description | Example |
+|--------|-------------|---------|
+| `-a` | Show all files, including hidden files | `tree -a` |
+| `-d` | Show only directories | `tree -d` |
+| `-L n` | Limit depth to n levels | `tree -L 2` |
+| `-I pattern` | Exclude files/directories matching pattern | `tree -I "node_modules\|.git"` |
+| `--gitignore` | Honor gitignore patterns | `tree -a --gitignore` |
+| `-h` | Print sizes in human-readable format | `tree -h` |
+| `-C` | Enable colorization | `tree -C` |
+
+## Examples
+
+| Use Case | Command | Description |
+|----------|---------|-------------|
+| Project Overview | `tree -L 2` | View top-level directories and immediate subdirectories |
+| Code Navigation | `tree -L 3 src` | View source code structure to 3 levels deep |
+| Full Directory Analysis | `tree -a -h --du` | Show all files with human-readable sizes and calculate directory sizes |
+| Exclude Build Artifacts | `tree -I "node_modules\|build\|dist\|__pycache__"` | Show only relevant source files |
+| Find Large Directories | `tree -d -h --du \| grep -B 3 -A 1 "[GM]"` | Identify directories with large content |
+| JSON Output | `tree -J > structure.json` | Output structure in JSON format for parsing |
+
+## Example Outputs
+
+### Basic Project Structure
+```
+.
+├── docs
+│   ├── api
+│   └── user-guide
+├── src
+│   ├── components
+│   ├── services
+│   └── utils
+├── tests
+│   ├── integration
+│   └── unit
+├── README.md
+└── package.json
+```
+
+### Detailed Source Analysis
+```
+src
+├── components
+│   ├── Button
+│   │   ├── Button.jsx
+│   │   ├── Button.test.js
+│   │   └── index.js
+│   └── Header
+│       ├── Header.jsx
+│       ├── Header.test.js
+│       └── index.js
+├── services
+│   ├── api.js
+│   └── auth.js
+└── utils
+    ├── formatters.js
+    └── validators.js
+```
+
+## Full Command Reference
 
 ``` plaintext
 usage: tree [-acdfghilnpqrstuvxACDFJQNSUX] [-L level [-R]] [-H  baseHREF]
-	[-T title] [-o filename] [-P pattern] [-I pattern] [--gitignore]
-	[--gitfile[=]file] [--matchdirs] [--metafirst] [--ignore-case]
-	[--nolinks] [--hintro[=]file] [--houtro[=]file] [--inodes] [--device]
-	[--sort[=]<name>] [--dirsfirst] [--filesfirst] [--filelimit #] [--si]
-	[--du] [--prune] [--charset[=]X] [--timefmt[=]format] [--fromfile]
-	[--fromtabfile] [--fflinks] [--info] [--infofile[=]file] [--noreport]
-	[--version] [--help] [--] [directory ...]
+    [-T title] [-o filename] [-P pattern] [-I pattern] [--gitignore]
+    [--gitfile[=]file] [--matchdirs] [--metafirst] [--ignore-case]
+    [--nolinks] [--hintro[=]file] [--houtro[=]file] [--inodes] [--device]
+    [--sort[=]<n>] [--dirsfirst] [--filesfirst] [--filelimit #] [--si]
+    [--du] [--prune] [--charset[=]X] [--timefmt[=]format] [--fromfile]
+    [--fromtabfile] [--fflinks] [--info] [--infofile[=]file] [--noreport]
+    [--version] [--help] [--] [directory ...]
   ------- Listing options -------
   -a            All files are listed.
   -d            List directories only.

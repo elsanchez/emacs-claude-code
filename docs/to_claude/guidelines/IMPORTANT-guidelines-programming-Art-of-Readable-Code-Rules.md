@@ -1,10 +1,4 @@
 <!-- ---
-!-- Timestamp: 2025-05-21 19:44:12
-!-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/IMPORTANT-guidelines-programming-Art-of-Readable-Code-Rules.md
-!-- --- -->
-
-<!-- ---
 -- Timestamp: 2025-05-21
 -- Author: Claude
 -- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/IMPORTANT-guidelines-programming-Art-of-Readable-Code-Rules.md
@@ -14,6 +8,43 @@
 
 Code should minimize the time and effort needed for others to understand it. Readable code directly improves maintainability, reduces bugs, and enhances team productivity.
 _____________________________________
+
+## Table of Contents
+- [Core Philosophy](#core-philosophy)
+- [Naming Rules](#naming-rules)
+  - [Variable and Function Naming](#variable-and-function-naming)
+  - [Machine Learning Code Naming](#machine-learning-code-naming)
+- [Aesthetics](#aesthetics)
+  - [Code Formatting](#code-formatting)
+  - [Configuration Formatting](#configuration-formatting)
+- [Comments Rules](#comments-rules)
+  - [Basic Comments](#basic-comments)
+  - [API Documentation](#api-documentation)
+- [Simplification Rules](#simplification-rules)
+  - [Boolean Logic Simplification](#boolean-logic-simplification)
+  - [Regex Simplification](#regex-simplification)
+- [Function Rules](#function-rules)
+  - [Function Design](#function-design)
+  - [Abstraction Level Mixing](#abstraction-level-mixing)
+- [Control Flow Rules](#control-flow-rules)
+  - [Nesting and Early Returns](#nesting-and-early-returns)
+  - [Complex Conditionals](#complex-conditionals)
+- [Data Structure Rules](#data-structure-rules)
+  - [Generic Dict vs. Classes](#generic-dict-vs-classes)
+  - [Data Validation](#data-validation)
+- [Organization Rules](#organization-rules)
+  - [Code Organization](#code-organization)
+  - [UI Organization](#ui-organization)
+- [Error Handling Rules](#error-handling-rules)
+  - [Basic Error Handling](#basic-error-handling)
+  - [Configuration Processing](#configuration-processing)
+- [Testing Rules](#testing-rules)
+  - [Basic Testing](#basic-testing)
+  - [Test Organization](#test-organization)
+- [Optimization Rules](#optimization-rules)
+  - [Basic Optimization](#basic-optimization)
+  - [Premature Optimization](#premature-optimization)
+- [Key Takeaways](#key-takeaways)
 
 ## Core Philosophy
 1. Code should be easy to understand for humans.
@@ -32,27 +63,26 @@ _____________________________________
 
 ### Variable and Function Naming
 
-| DO NOT                                                                   | DO |
-|--------------------------------------------------------------------------|----|
-| ```python                                                        |    |  |    |
-| |    def get_data(d, t, fl):                                      |    | |    |
-| |        r = []                                                   |    | |    |
-| |        for i in d:                                              |    | |    |
-| |            if i['tp'] == t and i['age'] > 30 and i['act'] == fl:|    | |    |
-| |                r.append(i)                                      |    | |    |
-| |        return r                                                 |    | |    |
-| |    ````                                                         |    | |    |
-| |   ```python                                                            |    |
-| def filter_active_users_by_type(users, user_type, is_active):            |    |
-| """Return users of specified type who are active and over 30."""         |    |
-| filtered_users = []                                                      |    |
-| for user in users:                                                       |    |
-| if (user['type'] == user_type and                                        |    |
-| user['age'] > 30 and                                                     |    |
-| user['active'] == is_active):                                            |    |
-| filtered_users.append(user)                                              |    |
-| return filtered_users                                                    |    |
-| ```                                                                      |    |
+| DO NOT | DO |
+|--------|-----|
+| ```python
+def get_data(d, t, fl):
+    r = []
+    for i in d:
+        if i['tp'] == t and i['age'] > 30 and i['act'] == fl:
+            r.append(i)
+    return r
+``` | ```python
+def filter_active_users_by_type(users, user_type, is_active):
+    """Return users of specified type who are active and over 30."""
+    filtered_users = []
+    for user in users:
+        if (user['type'] == user_type and 
+            user['age'] > 30 and 
+            user['active'] == is_active):
+            filtered_users.append(user)
+    return filtered_users
+``` |
 
 ### Machine Learning Code Naming
 
@@ -1251,5 +1281,31 @@ def calculate_statistics(values):
     
     return {"mean": mean, "median": median, "mode": mode}
 ``` |
+
+## Key Takeaways
+
+1. **Optimize for human understanding**: Write code for people first, computers second. The primary measure of code quality is how quickly another developer can understand it.
+
+2. **Meaningful names reveal intent**: Choose descriptive, specific names for variables, functions, and classes. Good names act as documentation and make code self-explanatory.
+
+3. **Consistent formatting enhances readability**: Use consistent spacing, indentation, and line breaks to visually organize code into logical groups.
+
+4. **Comments explain "why" not "what"**: Focus on explaining reasoning, edge cases, and non-obvious constraints rather than restating what the code does.
+
+5. **Simple is better than clever**: Avoid complex expressions and "clever" tricks. Break complexity into simpler components with clear names.
+
+6. **Functions should do one thing well**: Keep functions small, focused, and operating at a single level of abstraction. Extract unrelated operations into separate functions.
+
+7. **Early returns reduce nesting**: Use guard clauses and early returns to handle edge cases first, keeping the main logic path clean and less nested.
+
+8. **Strong typing prevents errors**: Use typed data structures, validation, and assertions to catch errors early and make expectations explicit.
+
+9. **Organize code by logical layers**: Separate concerns by grouping related functionality. Structure code from high-level to low-level within each file.
+
+10. **Specific error handling is actionable**: Handle error cases explicitly with descriptive messages that guide toward resolution.
+
+11. **Test interfaces, not implementations**: Write tests that verify behavior from the user's perspective rather than internal implementation details.
+
+12. **Prioritize readability over premature optimization**: Focus on making code correct and clear first. Only optimize after profiling identifies actual bottlenecks.
 
 <!-- EOF -->
