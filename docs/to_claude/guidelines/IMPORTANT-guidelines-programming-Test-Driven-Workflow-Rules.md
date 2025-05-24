@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-18 21:53:30
+!-- Timestamp: 2025-05-24 17:17:20
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/guidelines_programming_test_driven_workflow_rules.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/IMPORTANT-guidelines-programming-Test-Driven-Workflow-Rules.md
 !-- --- -->
 
 ## !!! IMPORTANT !!! Test-Driven Development (TDD) Workflow !!! IMPORTANT !!!
@@ -16,6 +16,7 @@ The most important guideline in this document is that we adopt test-driven devel
    - AVOID MOCK IMPLEMENTATIONS
    - In this stage, TESTS SHOULD TARGET FUNCTIONALITY THAT DOESN'T EXIST YET
    - Use `./run_tests.sh --debug` for running tests
+   - Also, read `./docs/guidelines/IMPORTANT-guidelines-programming-Elisp-CI-Framework-Rules.md` and follow the rules for pure environments if the project is Elisp-based.
    - Test code should have expected directory structure based on project goals and conventions in the used language
 
 2. **Verify test failures**
