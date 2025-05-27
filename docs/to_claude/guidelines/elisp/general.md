@@ -1,15 +1,19 @@
 <!-- ---
-!-- Timestamp: 2025-05-25 23:21:22
+!-- Timestamp: 2025-05-28 06:11:43
 !-- Author: ywatanabe
-!-- File: /ssh:sp:/home/ywatanabe/.claude/to_claude/guidelines/elisp/general.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/elisp/general.md
 !-- --- -->
 
-## Parentheses Mismatch Troubleshooting
+All programming general rules MUST be applied to Elisp projects as well.
+
+## Troubleshooting
+========================================
+#### Parentheses Mismatch
 Use the following scripts for debugging:
   - `.claude/to_claude/bin/elisp_check_parens.sh`
   - `.claude/to_claude/bin/elisp-check-parens-lib.el`
 
-## Require and Provide
+#### Require and Provide
 - DO NEVER INCLUDE SLASH (`/`) in `require` and `provide` statements.
   The arguments to require and provide are called features. These are symbols, not file paths.
   When you want to use code from `./xxx/yyy.el`:
@@ -27,35 +31,36 @@ Use the following scripts for debugging:
   (add-to-list 'load-path "~/.emacs.d/lisp/xxx")
   (require 'yyy)
   ```
+#### load-path
+- Place the following block to the top of entry file
+- This adds subdirectories recursively except for hidden files
+- To add paths for source/test files, placing and calling this function in root will be useful.
 
-#### Add Subdirectories recursively except for hidden files
-To add paths for source/test files, placing and calling this function in root will be useful.
 ```elisp
-(defun --add-subdirs-to-loadpath (parent-dir)
-  "Add all visible subdirectories of PARENT-DIR to `load-path'.
-Recursively adds all non-hidden subdirectories to the load path.
+(defun --elisp-add-subdirs-to-loadpath-recursive (parent-dir)
+  "Recursively add all visible subdirectories of PARENT-DIR to `load-path'.
+Recursively adds all non-hidden subdirectories at all levels to the load path.
 Hidden directories (starting with '.') are ignored.
-
 Example:
-(my/elisp-add-subdirs-to-loadpath \"~/.emacs.d/lisp/\")"
+(--elisp-add-subdirs-to-loadpath-recursive \"~/.emacs.d/lisp/\")"
   (let ((default-directory parent-dir))
-    ;; Add parent directory itself
     (add-to-list 'load-path parent-dir)
-    
-    ;; Get all non-hidden directories
     (dolist (dir (directory-files parent-dir t))
       (when (and (file-directory-p dir)
-                 (not (string-match-p "/\\.\\.?$" dir))  ; Skip . and ..
-                 (not (string-match-p "/\\." dir)))      ; Skip hidden dirs
-        ;; Add this directory to load path
-        (add-to-list 'load-path dir)))))
+                 (not (string-match-p "/\\.\\.?$" dir))
+                 (not (string-match-p "/\\." dir)))
+        (add-to-list 'load-path dir)
+        (--elisp-add-subdirs-to-loadpath-recursive dir)))))
 
-;; Usage: determine this file's directory and add subdirs to load-path
+;; Usage: add ./src and ./tests directories to load-path
 (let ((current-dir (file-name-directory (or load-file-name buffer-file-name))))
-  (--add-subdirs-to-loadpath current-dir))
+  (--elisp-add-subdirs-to-loadpath-recursive (concat current-dir "src"))
+  (--elisp-add-subdirs-to-loadpath-recursive (concat current-dir "tests")))
 ```
 
-## Elisp Coding Style
+## Elisp Structure
+========================================
+#### Elisp Project Structure
 - Use umbrella structure with up to 1 depth
 - Each umbrella must have at least:
   - Entry point: e.g., `./src/<package-prefix>-<umbrella>/<package-prefix>-<umbrella>.el`
@@ -73,20 +78,87 @@ Example:
 - Function naming: `<package-prefix>-<category>-<verb>-<noun>` pattern
 - Include comprehensive docstrings
 
-## Elisp Docstring Example
-  ```elisp
-  (defun elmo-load-json-file (json-path)
-    "Load JSON file at JSON-PATH by converting to markdown first.
+#### Elisp Project Structure
+1. Place entry point: `./<package-name>.el`
+   This allows to `(require 'package-name)` outside of the pacakge as long as path is added.
+2. Adopt umbrella design as follows:
 
-  Example:
-    (elmo-load-json-file \"~/.emacs.d/elmo/prompts/example.json\")
-    ;; => Returns markdown content from converted JSON"
-    (let ((md-path (concat (file-name-sans-extension json-path) ".md")))
-      (when (elmo-json-to-markdown json-path)
-        (elmo-load-markdown-file md-path))))
-  ```
+```plaintext
+./package-name/
+├── package-name.el                 # Entry point, allows (require 'package-name)
+│   # Contents:
+│   # Add loadpath to umbrella entry points
+│   # (require 'umbrella-xxx)
+│   # (require 'umbrella-yyy)
+│   # (provide 'package-name)
+├── src
+|   ├── umbrella-xxx/                   # First functional grouping
+|   │   ├── umbrella-xxx.el             # Submodule integrator 
+|   │   │   # Contents:
+|   │   │   # (require 'umbrella-xxx-aab)
+|   │   │   # (require 'umbrella-xxx-bbb) 
+|   │   │   # (provide 'umbrella-xxx)
+|   │   ├── umbrella-xxx-aab.el         # Component A functionality
+|   │   └── umbrella-xxx-bbb.el         # Component B functionality
+|   └── umbrella-yyy/                   # Second functional grouping
+|       ├── umbrella-yyy.el             # Submodule integrator
+|       │   # Contents:
+|       │   # (require 'umbrella-yyy-ccc)
+|       │   # (require 'umbrella-yyy-ddd)
+|       │   # (provide 'umbrella-yyy)
+|       ├── umbrella-yyy-ccc.el         # Component C functionality
+|       └── umbrella-yyy-ddd.el         # Component D functionality
+└── tests/                          # Test suite directory
+    ├── test-package-name.el        # Tests for main package
+    │   # Contents:
+    │   # Loadability check
+    ├── test-umbrella-xxx/          # Tests for xxx component
+    │   ├── test-umbrella-xxx.el    # Tests for xxx integration
+    │   │   # Loadability check
+    │   ├── test-umbrella-xxx-aab.el # Tests for aab functionality
+    │   │   # Contents:
+    │   │   # (ert-deftest test-umbrella-xxx-aab-descriptive-test-name-1 ...)
+    │   │   # (ert-deftest test-umbrella-xxx-aab-descriptive-test-name-2 ...)
+    │   └── test-umbrella-xxx-bbb.el # Tests for bbb functionality
+    │       # Contents:
+    │       # (ert-deftest test-umbrella-xxx-bbb-descriptive-test-name-1 ...)
+    │       # (ert-deftest test-umbrella-xxx-bbb-descriptive-test-name-2 ...)
+    └── test-umbrella-yyy/          # Tests for yyy component
+        ├── test-umbrella-yyy.el    # Tests for yyy integration
+        │   # Contents:
+        │   # Loadability check
+        ├── test-umbrella-yyy-ccc.el # Tests for ccc functionality
+        │   # (ert-deftest test-umbrella-yyy-ccc-descriptive-test-name-1 ...)
+        │   # (ert-deftest test-umbrella-yyy-ccc-descriptive-test-name-2 ...)
+        └──test-umbrella-yyy-ddd.el # Tests for ddd functionality
+            # (ert-deftest test-umbrella-yyy-ddd-descriptive-test-name-1 ...)
+            # (ert-deftest test-umbrella-yyy-ddd-descriptive-test-name-2 ...)
+```
 
-## Elisp Header Rule
+## Elisp In-File Rules
+========================================
+
+#### Elisp In-File Hierarchy and Sorting Rules
+- Functions must be sorted considering their hierarchy.
+- Upstream functions should be placed in upper positions
+  - from top (upstream functions) to down (utility functions)
+- Do not change any code contents during sorting
+- Includes comments to show hierarchy
+
+```elisp
+;; 1. Main entry point
+;; ---------------------------------------- 
+
+
+;; 2. Core functions
+;; ---------------------------------------- 
+
+
+;; 3. Helper functions
+;; ---------------------------------------- 
+```
+
+#### Elisp Header Rule
 
 - DO INCLUDE headers like:
 ``` elisp
@@ -108,89 +180,36 @@ Example:
 ;;; Code:
 ```
 
-## Elisp Project Structure
-1. Place entry point: `./<package-name>.el`
-   This allows to `(require 'package-name)` outside of the pacakge as long as path is added.
-2. Adopt umbrella design as follows:
-
-```plaintext
-./package-name/
-├── package-name.el                 # Entry point, allows (require 'package-name)
-│   # Contents:
-│   # Add loadpath to umbrella entry points
-│   # (require 'umbrella-xxx)
-│   # (require 'umbrella-yyy)
-│   # (provide 'package-name)
-├── src
-|   ├── umbrella-xxx/                   # First functional grouping
-|   │   ├── umbrella-xxx.el             # Submodule integrator 
-|   │   │   # Contents:
-|   │   │   # (require 'umbrella-xxx-aaa)
-|   │   │   # (require 'umbrella-xxx-bbb) 
-|   │   │   # (provide 'umbrella-xxx)
-|   │   ├── umbrella-xxx-aaa.el         # Component A functionality
-|   │   └── umbrella-xxx-bbb.el         # Component B functionality
-|   └── umbrella-yyy/                   # Second functional grouping
-|       ├── umbrella-yyy.el             # Submodule integrator
-|       │   # Contents:
-|       │   # (require 'umbrella-yyy-ccc)
-|       │   # (require 'umbrella-yyy-ddd)
-|       │   # (provide 'umbrella-yyy)
-|       ├── umbrella-yyy-ccc.el         # Component C functionality
-|       └── umbrella-yyy-ddd.el         # Component D functionality
-└── tests/                          # Test suite directory
-    ├── test-package-name.el        # Tests for main package
-    │   # Contents:
-    │   # Loadability check
-    ├── test-umbrella-xxx/          # Tests for xxx component
-    │   ├── test-umbrella-xxx.el    # Tests for xxx integration
-    │   │   # Loadability check
-    │   ├── test-umbrella-xxx-aaa.el # Tests for aaa functionality
-    │   │   # Contents:
-    │   │   # (ert-deftest test-umbrella-xxx-aaa-descriptive-test-name-1 ...)
-    │   │   # (ert-deftest test-umbrella-xxx-aaa-descriptive-test-name-2 ...)
-    │   └── test-umbrella-xxx-bbb.el # Tests for bbb functionality
-    │       # Contents:
-    │       # (ert-deftest test-umbrella-xxx-bbb-descriptive-test-name-1 ...)
-    │       # (ert-deftest test-umbrella-xxx-bbb-descriptive-test-name-2 ...)
-    └── test-umbrella-yyy/          # Tests for yyy component
-        ├── test-umbrella-yyy.el    # Tests for yyy integration
-        │   # Contents:
-        │   # Loadability check
-        ├── test-umbrella-yyy-ccc.el # Tests for ccc functionality
-        │   # (ert-deftest test-umbrella-yyy-ccc-descriptive-test-name-1 ...)
-        │   # (ert-deftest test-umbrella-yyy-ccc-descriptive-test-name-2 ...)
-        └──test-umbrella-yyy-ddd.el # Tests for ddd functionality
-            # (ert-deftest test-umbrella-yyy-ddd-descriptive-test-name-1 ...)
-            # (ert-deftest test-umbrella-yyy-ddd-descriptive-test-name-2 ...)
+#### Elisp Fotter Rule
+- Do not remove this kind of footer. This is useful when evaluate the buffer to confirm no problem found in the file.
+- In general, they are handled by an automatic script by the `ehf-update-header-and-footer` function from `emacs-header-footer-manager package. So they will not have syntax errors.
+``` elisp
+(when
+    (not load-file-name)
+  (message "ecc-vterm-yank-as-file.el loaded."
+           (file-name-nondirectory
+            (or load-file-name buffer-file-name))))
 ```
 
-## Elisp Hierarchy, Sorting Rules
-- Functions must be sorted considering their hierarchy.
-- Upstream functions should be placed in upper positions
-  - from top (upstream functions) to down (utility functions)
-- Do not change any code contents during sorting
-- Includes comments to show hierarchy
+#### Elisp Docstring Example
+  ```elisp
+  (defun elmo-load-json-file (json-path)
+    "Load JSON file at JSON-PATH by converting to markdown first.
 
-```elisp
-;; 1. Main entry point
-;; ---------------------------------------- 
+  Example:
+    (elmo-load-json-file \"~/.emacs.d/elmo/prompts/example.json\")
+    ;; => Returns markdown content from converted JSON"
+    (let ((md-path (concat (file-name-sans-extension json-path) ".md")))
+      (when (elmo-json-to-markdown json-path)
+        (elmo-load-markdown-file md-path))))
+  ```
 
-
-;; 2. Core functions
-;; ---------------------------------------- 
-
-
-;; 3. Helper functions
-;; ---------------------------------------- 
-```
-
-### Comments
+#### Elisp Commenting Rules
 - Keep comments minimal but meaningful
 - Use comments for section separation and clarification
 - Avoid redundant comments that just restate code
 
-### Elisp Testing
+#### Elisp Testing Rules
 - Test code should be located as `./tests/test-*.el` or `./tests/sub-directory/test-*.el`
 - `./tests` directory should mirror the source code in their structures
 - Source file and test file must be in one-on-one relationships
@@ -239,33 +258,7 @@ Example:
   (should
    (featurep 'lle-base-utf-8)))
 
-(ert-deftest test-lle-base-groups-loadable
-    ()
-  "Tests if lle-base-groups is loadable."
-  (require 'lle-base-groups)
-  (should
-   (featurep 'lle-base-groups)))
-
-(ert-deftest test-lle-base-timestamp-loadable
-    ()
-  "Tests if lle-base-timestamp is loadable."
-  (require 'lle-base-timestamp)
-  (should
-   (featurep 'lle-base-timestamp)))
-
-(ert-deftest test-lle-base-flags-loadable
-    ()
-  "Tests if lle-base-flags is loadable."
-  (require 'lle-base-flags)
-  (should
-   (featurep 'lle-base-flags)))
-
-(ert-deftest test-lle-base-buffers-loadable
-    ()
-  "Tests if lle-base-buffers is loadable."
-  (require 'lle-base-buffers)
-  (should
-   (featurep 'lle-base-buffers)))
+...
 
 (provide 'test-lle-base)
 ```
@@ -319,12 +312,12 @@ Example:
 
 (provide 'test-lle-base-restart)
 ```
-  - Loadable tests should not be split across files but concentrate on central entry file (`./tests/test-<package-name>.el`)
-  - Ensure the codes identical between before and after testing; implement cleanup process
-  - DO NOT ALLOW CHANGE DUE TO TEST
-  - When edition is required for testing, first store original information and revert in the cleanup stage
+- Loadable tests should not be split across files but concentrate on central entry file (`./tests/test-<package-name>.el`); otherwise, duplicated error raised.
+- Ensure the codes identical between before and after testing; implement cleanup process
+- DO NOT ALLOW CHANGE DUE TO TEST
+- When edition is required for testing, first store original information and revert in the cleanup stage
 
-## Example of Elisp Test Files
+#### Example of Elisp Test Files
 
 ``` elisp
 ;;; -*- coding: utf-8; lexical-binding: t -*-
@@ -382,15 +375,16 @@ Example:
 
 (provide 'test-etm-buffer-checkers)
 ```
-
-## ./run_tests.sh for Elisp Projects
+#### ./run_tests.sh for Elisp Projects
 - Using this `./run_tests_elisp.sh` in the project root
   - It creates detailed `LATEST-ELISP-REPORT.org` with metrics
 
 ## Example Elisp Proeject
+========================================
 See `.claude/examples/emacs-hello-world`
 
 ## Your Understanding Check
+========================================
 Did you understand the guideline? If yes, please say:
 `CLAUDE UNDERSTOOD: <THIS FILE PATH HERE>`
 
