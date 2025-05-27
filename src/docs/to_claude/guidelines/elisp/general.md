@@ -1,5 +1,5 @@
 <!-- ---
-!-- Timestamp: 2025-05-28 06:11:43
+!-- Timestamp: 2025-05-27 09:22:19
 !-- Author: ywatanabe
 !-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/elisp/general.md
 !-- --- -->
@@ -138,26 +138,6 @@ Example:
 ## Elisp In-File Rules
 ========================================
 
-#### Elisp In-File Hierarchy and Sorting Rules
-- Functions must be sorted considering their hierarchy.
-- Upstream functions should be placed in upper positions
-  - from top (upstream functions) to down (utility functions)
-- Do not change any code contents during sorting
-- Includes comments to show hierarchy
-
-```elisp
-;; 1. Main entry point
-;; ---------------------------------------- 
-
-
-;; 2. Core functions
-;; ---------------------------------------- 
-
-
-;; 3. Helper functions
-;; ---------------------------------------- 
-```
-
 #### Elisp Header Rule
 
 - DO INCLUDE headers like:
@@ -203,6 +183,26 @@ Example:
       (when (elmo-json-to-markdown json-path)
         (elmo-load-markdown-file md-path))))
   ```
+
+#### Elisp In-File Hierarchy and Sorting Rules
+- Functions must be sorted considering their hierarchy.
+- Upstream functions should be placed in upper positions
+  - from top (upstream functions) to down (utility functions)
+- Do not change any code contents during sorting
+- Includes comments to show hierarchy
+
+```elisp
+;; 1. Main entry point
+;; ---------------------------------------- 
+
+
+;; 2. Core functions
+;; ---------------------------------------- 
+
+
+;; 3. Helper functions
+;; ---------------------------------------- 
+```
 
 #### Elisp Commenting Rules
 - Keep comments minimal but meaningful
