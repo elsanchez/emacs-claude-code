@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-25 23:21:20
+!-- Timestamp: 2025-05-28 07:23:29
 !-- Author: ywatanabe
-!-- File: /ssh:sp:/home/ywatanabe/.claude/to_claude/guidelines/elisp/ci.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/elisp/ci.md
 !-- --- -->
 
 # Elisp-CI Framework: Universal CI/CD Guidelines for Emacs Lisp Projects
@@ -10,7 +10,7 @@
 
 The Elisp-CI framework provides standardized, zero-configuration CI/CD infrastructure for Emacs Lisp projects. Developed during the ETM project, it addresses the unique challenges of testing across multiple Emacs versions while establishing modern development practices for the Elisp ecosystem.
 
-**Location:** `.claude/to_claude/bin/elisp-ci/`  
+**Location:** `.claude/to_claude/bin/elisp/elisp-ci/elisp-ci`  
 **Status:** Production-ready, validated on real projects  
 **Compatibility:** Emacs 27.1 through snapshot  
 
