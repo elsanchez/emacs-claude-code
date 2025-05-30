@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-31 06:20:21
+!-- Timestamp: 2025-05-31 08:03:25
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-06-examples-guide_.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-06-examples-guide.md
 !-- --- -->
 
 ## Example Guidelines
