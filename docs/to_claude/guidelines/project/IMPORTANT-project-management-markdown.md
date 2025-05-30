@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-20 05:43:47
+!-- Timestamp: 2025-05-30 17:10:32
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.claude/to_claude/guidelines/guidelines-Project-Management-Rules.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/project/IMPORTANT-project-management-markdown.md
 !-- --- -->
 
 Project management is conducted under `./project_management` directory.

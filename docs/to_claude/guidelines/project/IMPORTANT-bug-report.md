@@ -1,17 +1,17 @@
 <!-- ---
-!-- Timestamp: 2025-05-25 01:43:00
+!-- Timestamp: 2025-05-30 06:34:35
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/guidelines-programming-Bug-Report-Rules.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/project/IMPORTANT-bug-report.md
 !-- --- -->
 
 # Local Bug Report Rules
 
 ## Locations
 - Bug report MUST be written as:
-  `./project_management/bug_reports/bug-report-<title>.md`
+  `./project_management/bug-reports/bug-report-<title>.md`
 - Bug report MUST be as much simple as possible
 - Once solved, bug reports MUST be moved to:
-  `./project_management/bug_reports/solved/bug-report-<title>.md`
+  `./project_management/bug-reports/solved/bug-report-<title>.md`
 
 ## How to solve bug reports
 1. Think potential causes and make a plan to troubleshoot
@@ -28,7 +28,7 @@
 Consider reverting to the latest commit which did not raise the problem. We sometimes make mistakes but retry with experiences and updated ideas.
 
 ## Format
-- Add progress section in `./project_management/bug_reports/bug-report-<title>.md` as follows:
+- Add progress section in `./project_management/bug-reports/bug-report-<title>.md` as follows:
   ```
   ## Bug Fix Progress
   - [x] Identify root cause
