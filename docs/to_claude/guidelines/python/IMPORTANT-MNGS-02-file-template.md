@@ -1,5 +1,5 @@
 <!-- ---
-!-- Timestamp: 2025-05-31 08:04:58
+!-- Timestamp: 2025-06-01 01:05:51
 !-- Author: ywatanabe
 !-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-02-file-template.md
 !-- --- -->
