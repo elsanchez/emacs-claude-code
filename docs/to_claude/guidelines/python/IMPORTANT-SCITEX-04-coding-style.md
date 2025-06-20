@@ -1,7 +1,7 @@
 <!-- ---
 !-- Timestamp: 2025-05-29 20:33:05
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/MNGS-04-mngs-coding-style.md
+!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/SCITEX-04-scitex-coding-style.md
 !-- --- -->
 
 ## Python Coding Style
@@ -15,7 +15,7 @@
 - Scripts MUST BE RUNfrom project root
 - Centralize path definitions in `./config/PATH.yaml`
 
-For mngs package development:
+For scitex package development:
 - Use underscore prefix for imports (e.g., `import numpy as _np`)
 - Use relative imports (e.g., `from ..io._load import load`)
 

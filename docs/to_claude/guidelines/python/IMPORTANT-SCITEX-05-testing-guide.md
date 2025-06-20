@@ -1,7 +1,7 @@
 <!-- ---
 !-- Timestamp: 2025-05-29 20:33:09
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/MNGS-05-mngs-testing-guide.md
+!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/SCITEX-05-scitex-testing-guide.md
 !-- --- -->
 
 ## Testing Guidelines
@@ -17,14 +17,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Timestamp: "2025-05-03 00:49:28 (ywatanabe)"
-# File: ./tests/mngs/plt/test_function.py
+# File: ./tests/scitex/plt/test_function.py
 
 import pytest
 import numpy as np
 
 def test_function():
     """Test specific functionality."""
-    from mngs.module.path import function
+    from scitex.module.path import function
     
     # Setup test data
     input_data = np.array([1, 2, 3])

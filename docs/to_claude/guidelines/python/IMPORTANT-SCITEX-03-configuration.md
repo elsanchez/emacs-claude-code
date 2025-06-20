@@ -1,7 +1,7 @@
 <!-- ---
-!-- Timestamp: 2025-05-29 20:33:00
+!-- Timestamp: 2025-06-14 06:40:55
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/MNGS-03-mngs-configuration.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-SCITEX-03-configuration.md
 !-- --- -->
 
 ## Configuration Examples
@@ -34,8 +34,8 @@ COLORS:
 Accessing configurations:
 
 ```python
-import mngs
-CONFIG = mngs.io.load_configs()
+import scitex as stx
+CONFIG = stx.io.load_configs()
 
 # Access config values
 print(CONFIG.COLORS.SEIZURE_TYPE)  # {"1": "red", "2": "orange", "3": "pink", "4": "gray"}
