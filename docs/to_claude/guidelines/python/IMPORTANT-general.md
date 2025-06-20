@@ -4,17 +4,17 @@
 !-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-general.md
 !-- --- -->
 
-## MNGS Rule
+## SCITEX Rule
 **!!! IMPORATANT !!!**
-**ANY PYTHON SCRIPTS MUST BE WRITTEN IN THE MNGS FORMAT EXPLAINED BELOW.**
+**ANY PYTHON SCRIPTS MUST BE WRITTEN IN THE SCITEX FORMAT EXPLAINED BELOW.**
 THE EXCEPTIONS ARE:
     - Pacakges authored by others
     - Source (`./src`) of pip packages to reduce dependency
-THUS, MNGS MUST BE USED IN:
+THUS, SCITEX MUST BE USED IN:
 - `./scripts`
 - `./tests`
 - `./examples`
-For details, see the mngs guideline (`./TOP-MOST-IMPORTANT-mngs.md`).
+For details, see the scitex guideline (`./TOP-MOST-IMPORTANT-scitex.md`).
 
 ## `chmod +x *.py`
 Do not forget to add the executable permission (`chmod +x`) for `*.py` files.

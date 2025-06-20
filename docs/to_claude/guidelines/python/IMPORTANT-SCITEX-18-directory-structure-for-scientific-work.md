@@ -1,7 +1,7 @@
 <!-- ---
 !-- Timestamp: 2025-05-30 08:21:56
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-18-directory-structure-for-scientific-work.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-SCITEX-18-directory-structure-for-scientific-work.md
 !-- --- -->
 
 ## Directory Structure of Scientific Project
@@ -21,7 +21,7 @@
         ├── script.py       # Python script
         └── script_out/     # Output directory for this script
             ├── file.ext    # Output files
-            └── logs/       # Logging directory for each run (managed by `mngs.gen.start` and `mngs.gen.close`)
+            └── logs/       # Logging directory for each run (managed by `scitex.gen.start` and `scitex.gen.close`)
                 ├── RUNNING
                 ├── FINISHED_SUCCESS
                 └── FINISHED_FAILURE

@@ -1,20 +1,20 @@
 <!-- ---
-!-- Timestamp: 2025-05-29 20:33:14
+!-- Timestamp: 2025-06-14 06:41:51
 !-- Author: ywatanabe
-!-- File: /ssh:ywatanabe@sp:/home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/MNGS-11-mngs-gen-module.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-SCITEX-11-gen-module.md
 !-- --- -->
 
-## `mngs.gen`
+## `scitex.gen`
 
-- `mngs.gen` is a module for general utilities
+- `scitex.gen` is a module for general utilities
 
 ### Environment Management
 ```python
 # Initialize environment (logging, paths, matplotlib, random seed)
-mngs.gen.start(...)
+stx.gen.start(...)
 
 # Clean up environment
-mngs.gen.close(...)
+stx.gen.close(...)
 ```
 
 ## Your Understanding Check

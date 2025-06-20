@@ -1,12 +1,12 @@
 <!-- ---
-!-- Timestamp: 2025-06-01 01:05:51
+!-- Timestamp: 2025-06-14 06:40:13
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-02-file-template.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-SCITEX-02-file-template.md
 !-- --- -->
 
 ## Script Template
 
-MNGS PYTHON SCRIPT MUST STRICTLY FOLLOW THIS STANDARD FORMAT:
+SCITEX PYTHON SCRIPT MUST STRICTLY FOLLOW THIS STANDARD FORMAT:
 
 ```python
 #!/usr/bin/env python3
@@ -33,31 +33,30 @@ Dependencies:
     - /path/to/script1
     - /path/to/script2
   - packages:
-    - package1
-    - package2
-IO:
-  - input-files:
-    - /path/to/input/file.xxx
-    - /path/to/input/file.xxx
+    - package1, package2, ...
+Input:
+  - /path/to/input/file.xxx
+  - /path/to/input/file.xxx
 
-  - output-files:
-    - /path/to/input/file.xxx
-    - /path/to/input/file.xxx
+Output:
+  - /path/to/input/file.xxx
+  - /path/to/input/file.xxx
 
 (Remove me: Please fill docstrings above, while keeping the bulette point style, and remove this instruction line)
 """
 
 """Imports"""
 import argparse
+import scitex as stx
 
 """Warnings"""
-# mngs.pd.ignore_SettingWithCopyWarning()
+# stx.pd.ignore_SettingWithCopyWarning()
 # warnings.simplefilter("ignore", UserWarning)
 # with warnings.catch_warnings():
 #     warnings.simplefilter("ignore", UserWarning)
 
 """Parameters"""
-# from mngs.io import load_configs
+# from stx.io import load_configs
 # CONFIG = load_configs()
 
 """Functions & Classes"""
@@ -67,9 +66,6 @@ def main(args):
 
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
-    import mngs
-
-    script_mode = mngs.gen.is_script()
     parser = argparse.ArgumentParser(description="")
     # parser.add_argument(
     #     "--var",
@@ -87,22 +83,20 @@ def parse_args() -> argparse.Namespace:
     #     help="(default: %%(default)s)",
     # )
     args = parser.parse_args()
-    mngs.str.printc(args, c="yellow")
+    stx.str.printc(args, c="yellow")
     return args
 
 
 def run_main() -> None:
-    """Initialize mngs framework, run main function, and cleanup."""
+    """Initialize scitex framework, run main function, and cleanup."""
     global CONFIG, CC, sys, plt
 
     import sys
-
     import matplotlib.pyplot as plt
-    import mngs
 
     args = parse_args()
 
-    CONFIG, sys.stdout, sys.stderr, plt, CC = mngs.gen.start(
+    CONFIG, sys.stdout, sys.stderr, plt, CC = stx.gen.start(
         sys,
         plt,
         args=args,
@@ -113,7 +107,7 @@ def run_main() -> None:
 
     exit_status = main(args)
 
-    mngs.gen.close(
+    stx.gen.close(
         CONFIG,
         verbose=False,
         notify=False,

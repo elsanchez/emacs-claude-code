@@ -1,5 +1,5 @@
 <!-- ---
-!-- Timestamp: 2025-06-04 05:02:03
+!-- Timestamp: 2025-06-14 06:50:01
 !-- Author: ywatanabe
 !-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/programming_common/IMPORTANT-slurm.md
 !-- --- -->
@@ -7,6 +7,25 @@
 # SLURM Utilities
 
 Simple SLURM workflow for persistent GPU nodes.
+
+## `module load`
+In spartan HPC, module load may be required.
+
+``` bash
+module load \
+    GCCcore/11.3.0 \
+    Python/3.10.4 \
+    Tkinter/3.10.4 \
+    OpenSSL/1.1 \
+    Apptainer/1.3.3 \
+    bzip2 \
+    slurm/latest \
+    GLib/2.72.1 \
+    GTK3/3.24.33 \
+    Gdk-Pixbuf/2.42.8 \
+    nodejs/18.17.1
+    # texlive/20230313
+```
 
 ## Quick Start
 
@@ -17,9 +36,9 @@ sbatch request.sh
 
 2. Run commands on allocated node:
 ```bash
-./run.sh python train.py
-./run.sh script.py
-./run.sh nvidia-smi
+srun.sh python train.py
+srun.sh script.py
+srun.sh nvidia-smi
 ```
 
 3. Login to node directly:

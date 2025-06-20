@@ -1,24 +1,24 @@
 <!-- ---
 !-- Timestamp: 2025-06-01 03:18:02
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-06-examples-guide.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-SCITEX-06-examples-guide.md
 !-- --- -->
 
 # Example Guidelines
 
-## MUST USE `MNGS`
-All example files MUST use `mngs` and follow the `mngs` framework
-Understand all the `mngs` guidelines in this directory
+## MUST USE `SCITEX`
+All example files MUST use `scitex` and follow the `scitex` framework
+Understand all the `scitex` guidelines in this directory
 
 ## MUST HAVE CORRESPONDING OUTPUT DIRECTORY
 - Output directory creation is handled by:
-  - `mngs.gen.start`
-  - `mngs.gen.close`
-  - `mngs.io.save`
+  - `scitex.gen.start`
+  - `scitex.gen.close`
+  - `scitex.io.save`
 - If corresponding output directory is not created, that means:
-  1. That script does not follow the `mngs` framework
+  1. That script does not follow the `scitex` framework
   2. That script is not run yet
-  3. The `mngs` package has problems
+  3. The `scitex` package has problems
   You must investigate the root causes, share the information across agents, and fix problems
 
 ## MUST synchronize source directory structure
@@ -36,7 +36,7 @@ Utility scripts like batch renaming, checking, and so on MUST be written under `
 - Implementing an example is not sufficient
 - ALWAYS RUN IMPLEMENTED EXAMPLES AND PRODUCE EXPLANATORY RESULTS
   - Embrace figures for visual understanding
-  - Logs created by the mngs framework is also valuable
+  - Logs created by the scitex framework is also valuable
 - Examples can be run by:
   ```bash
   # Direct, one example
@@ -62,6 +62,6 @@ Did you understand the guideline? If yes, please say:
 `CLAUDE UNDERSTOOD: <THIS FILE PATH HERE>`
 ```
 
-CLAUDE UNDERSTOOD: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-MNGS-06-examples-guide.md
+CLAUDE UNDERSTOOD: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/python/IMPORTANT-SCITEX-06-examples-guide.md
 
 <!-- EOF -->

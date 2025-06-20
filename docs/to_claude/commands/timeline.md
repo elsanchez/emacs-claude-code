@@ -1,9 +1,13 @@
 <!-- ---
-!-- Timestamp: 2025-06-10 07:13:06
+!-- Timestamp: 2025-06-10 07:14:02
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/.dotfiles/.claude/to_claude/guidelines/project/timeline-gantt-chart.md
+!-- File: /home/ywatanabe/.dotfiles/.claude/commands/timeline.md
 !-- --- -->
 
+
+1. Understand this timeline guideline below.
+
+# Timeline using Gantt Chart Guidelien
 Timeline Gantt charts are excellent tools for planning, directing, and communicating. Therefore, we encourage incorporating this technique into progress management.
 
 Absolute time is not always important; instead, relative time or the visualization of project progression is most important. Therefore, timestamps are not necessarily accurate. You may check git history, but precision is not strictly required.
@@ -45,5 +49,7 @@ gantt
     Debug Message Control       :done,    debug_fix,     2025-05-12, 2025-05-18
     Initial Waiting Detection   :done,    waiting_fix,   2025-05-15, 2025-05-20
 ```
+
+2. Create a timeline gantt chart for $ARGUMENTS
 
 <!-- EOF -->
