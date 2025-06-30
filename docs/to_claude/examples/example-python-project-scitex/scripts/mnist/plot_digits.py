@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Timestamp: "2025-02-15 01:56:49 (ywatanabe)"
-# File: /home/ywatanabe/proj/example-mngs-project/scripts/mnist/plot_digits.py
+# File: /home/ywatanabe/proj/example-scitex-project/scripts/mnist/plot_digits.py
 
 __file__ = "./scripts/mnist/plot_digits.py"
 
@@ -13,7 +13,7 @@ Input:
 Output:
     - Sample image plots
 Prerequisites:
-    - mngs package
+    - scitex package
     - PyTorch
 """
 
@@ -22,7 +22,7 @@ import argparse
 from typing import Optional
 
 import matplotlib.pyplot as plt
-import mngs
+import scitex
 from torch.utils.data import DataLoader
 
 """Parameters"""
@@ -32,7 +32,7 @@ from torch.utils.data import DataLoader
 
 def plot_samples(loader: DataLoader, n_samples: int = 25) -> None:
     images, labels = next(iter(loader))
-    fig, axes = mngs.plt.subplots(5, 5, figsize=(10, 10))
+    fig, axes = scitex.plt.subplots(5, 5, figsize=(10, 10))
 
     for idx, ax in enumerate(axes.flat):
         if idx < n_samples:
@@ -41,12 +41,12 @@ def plot_samples(loader: DataLoader, n_samples: int = 25) -> None:
             # ax.axis("off")
 
     plt.tight_layout()
-    mngs.io.save(fig, CONFIG.PATH.MNIST.FIGURES + "mnist_samples.jpg", symlink_from_cwd=True)
+    scitex.io.save(fig, CONFIG.PATH.MNIST.FIGURES + "mnist_samples.jpg", symlink_from_cwd=True)
 
 
 def plot_label_examples(loader: DataLoader) -> None:
     images, labels = next(iter(loader))
-    fig, axes = mngs.plt.subplots(2, 5, figsize=(15, 6))
+    fig, axes = scitex.plt.subplots(2, 5, figsize=(15, 6))
 
     label_examples = {}
     for img, label in zip(images, labels):
@@ -60,11 +60,11 @@ def plot_label_examples(loader: DataLoader) -> None:
         # axes[row, col].axis("off")
 
     plt.tight_layout()
-    mngs.io.save(fig, CONFIG.PATH.MNIST.FIGURES + "mnist_digits.jpg", symlink_from_cwd=True)
+    scitex.io.save(fig, CONFIG.PATH.MNIST.FIGURES + "mnist_digits.jpg", symlink_from_cwd=True)
 
 
 def main(args: argparse.Namespace) -> Optional[int]:
-    train_loader = mngs.io.load(CONFIG.PATH.MNIST.LOADER.TRAIN)
+    train_loader = scitex.io.load(CONFIG.PATH.MNIST.LOADER.TRAIN)
     plot_samples(train_loader)
     plot_label_examples(train_loader)
     return 0
@@ -73,19 +73,19 @@ def main(args: argparse.Namespace) -> Optional[int]:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Visualize MNIST samples")
     args = parser.parse_args()
-    mngs.str.printc(args, c="yellow")
+    scitex.str.printc(args, c="yellow")
     return args
 
 
 def run_main() -> None:
-    """Initialize mngs framework, run main function, and cleanup.
+    """Initialize scitex framework, run main function, and cleanup.
 
-    mngs framework manages:
+    scitex framework manages:
       - Parameters defined in yaml files under `./config dir`
       - Setting saving directory (/path/to/file.py -> /path/to/file.py_out/)
       - Symlink for `./data` directory
       - Logging timestamp, stdout, stderr, and parameters
-      - Matplotlib configurations (also, `mngs.plt` will track plotting data)
+      - Matplotlib configurations (also, `scitex.plt` will track plotting data)
       - Random seeds
 
     THUS, DO NOT MODIFY THIS RUN_MAIN FUNCTION
@@ -96,7 +96,7 @@ def run_main() -> None:
 
     global CONFIG, CC, sys, plt
     args = parse_args()
-    CONFIG, sys.stdout, sys.stderr, plt, CC = mngs.gen.start(
+    CONFIG, sys.stdout, sys.stderr, plt, CC = scitex.gen.start(
         sys,
         plt,
         args=args,
@@ -106,7 +106,7 @@ def run_main() -> None:
 
     exit_status = main(args)
 
-    mngs.gen.close(
+    scitex.gen.close(
         CONFIG,
         exit_status=exit_status,
     )

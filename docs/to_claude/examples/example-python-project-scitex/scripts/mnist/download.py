@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Timestamp: "2025-02-15 01:06:56 (ywatanabe)"
-# File: /home/ywatanabe/proj/example-mngs-project/scripts/mnist/download.py
+# File: /home/ywatanabe/proj/example-scitex-project/scripts/mnist/download.py
 
 __file__ = "./scripts/mnist/download.py"
 
@@ -14,7 +14,7 @@ Output:
     - Raw MNIST data
     - Preprocessed data for different models
 Prerequisites:
-    - mngs package
+    - scitex package
     - PyTorch
 """
 
@@ -22,7 +22,7 @@ Prerequisites:
 import argparse
 from typing import Dict, Optional
 
-import mngs
+import scitex
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
@@ -86,28 +86,28 @@ def main(args: argparse.Namespace) -> Optional[int]:
     loaders = create_loaders(datasets)
     flat_data = prepare_flattened_data(datasets)
 
-    mngs.io.save(
+    scitex.io.save(
         loaders["train"], CONFIG.PATH.MNIST.LOADER.TRAIN, symlink_from_cwd=True
     )
-    mngs.io.save(
+    scitex.io.save(
         loaders["test"], CONFIG.PATH.MNIST.LOADER.TEST, symlink_from_cwd=True
     )
-    mngs.io.save(
+    scitex.io.save(
         flat_data["data"]["train"],
         CONFIG.PATH.MNIST.FLATTENED.TRAIN,
         symlink_from_cwd=True,
     )
-    mngs.io.save(
+    scitex.io.save(
         flat_data["data"]["test"],
         CONFIG.PATH.MNIST.FLATTENED.TEST,
         symlink_from_cwd=True,
     )
-    mngs.io.save(
+    scitex.io.save(
         flat_data["labels"]["train"],
         CONFIG.PATH.MNIST.LABELS.TRAIN,
         symlink_from_cwd=True,
     )
-    mngs.io.save(
+    scitex.io.save(
         flat_data["labels"]["test"],
         CONFIG.PATH.MNIST.LABELS.TEST,
         symlink_from_cwd=True,
@@ -120,19 +120,19 @@ def parse_args() -> argparse.Namespace:
         description="Download and preprocess MNIST dataset"
     )
     args = parser.parse_args()
-    mngs.str.printc(args, c="yellow")
+    scitex.str.printc(args, c="yellow")
     return args
 
 
 def run_main() -> None:
-    """Initialize mngs framework, run main function, and cleanup.
+    """Initialize scitex framework, run main function, and cleanup.
 
-    mngs framework manages:
+    scitex framework manages:
       - Parameters defined in yaml files under `./config dir`
       - Setting saving directory (/path/to/file.py -> /path/to/file.py_out/)
       - Symlink for `./data` directory
       - Logging timestamp, stdout, stderr, and parameters
-      - Matplotlib configurations (also, `mngs.plt` will track plotting data)
+      - Matplotlib configurations (also, `scitex.plt` will track plotting data)
       - Random seeds
 
     THUS, DO NOT MODIFY THIS RUN_MAIN FUNCTION
@@ -143,7 +143,7 @@ def run_main() -> None:
 
     global CONFIG, CC, sys, plt
     args = parse_args()
-    CONFIG, sys.stdout, sys.stderr, plt, CC = mngs.gen.start(
+    CONFIG, sys.stdout, sys.stderr, plt, CC = scitex.gen.start(
         sys,
         plt,
         args=args,
@@ -153,7 +153,7 @@ def run_main() -> None:
 
     exit_status = main(args)
 
-    mngs.gen.close(
+    scitex.gen.close(
         CONFIG,
         exit_status=exit_status,
     )
