@@ -1,5 +1,5 @@
 # Timestamp: "2025-02-14 20:16:51 (ywatanabe)"
-# File: /home/ywatanabe/proj/example-mngs-project/config/MNIST.yaml
+# File: /home/ywatanabe/proj/example-scitex-project/config/MNIST.yaml
 
 MNIST:
   BATCH_SIZE:

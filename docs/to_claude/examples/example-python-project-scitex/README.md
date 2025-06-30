@@ -1,15 +1,15 @@
 <!-- ---
 !-- Timestamp: 2025-02-15 02:05:17
 !-- Author: ywatanabe
-!-- File: /home/ywatanabe/proj/example-mngs-project/README.md
+!-- File: /home/ywatanabe/proj/example-scitex-project/README.md
 !-- --- -->
 
-# example-mngs-project
+# example-scitex-project
 
-This repository demonstrates a project format using [mngs](https://github.com/ywatanabe1989/mngs), a Python utility package that standardizes analyses and applications in scientific projects.
+This repository demonstrates a project format using [scitex](https://github.com/ywatanabe1989/scitex), a Python utility package that standardizes analyses and applications in scientific projects.
 
-## MNGS Framework
-mngs project features predefined directory structure - [`./config`](./config), [`./data`](./data), [`./scripts`](./scripts)
+## SCITEX Framework
+scitex project features predefined directory structure - [`./config`](./config), [`./data`](./data), [`./scripts`](./scripts)
 
 Config:
     - Centralized YAML configuration files (e.g., [`./config/PATH.yaml`](./config/PATH.yaml))

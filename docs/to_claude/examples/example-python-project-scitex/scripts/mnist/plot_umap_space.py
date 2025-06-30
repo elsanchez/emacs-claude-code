@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Timestamp: "2025-02-15 01:06:57 (ywatanabe)"
-# File: /home/ywatanabe/proj/example-mngs-project/scripts/mnist/plot_umap_space.py
+# File: /home/ywatanabe/proj/example-scitex-project/scripts/mnist/plot_umap_space.py
 
 __file__ = "./scripts/mnist/plot_umap_space.py"
 
@@ -13,7 +13,7 @@ Input:
 Output:
     - UMAP visualization plots
 Prerequisites:
-    - mngs package
+    - scitex package
     - umap-learn
 """
 
@@ -22,7 +22,7 @@ import argparse
 from typing import Optional
 
 import matplotlib.pyplot as plt
-import mngs
+import scitex
 import numpy as np
 import umap
 
@@ -39,7 +39,7 @@ def create_umap_embedding(data: np.ndarray) -> np.ndarray:
 
 
 def plot_umap(embedding: np.ndarray, labels: np.ndarray) -> None:
-    fig, ax = mngs.plt.subplots(figsize=(12, 8))
+    fig, ax = scitex.plt.subplots(figsize=(12, 8))
     scatter = ax.scatter(
         embedding[:, 0], embedding[:, 1], c=labels, cmap="tab10", alpha=0.5
     )
@@ -49,12 +49,12 @@ def plot_umap(embedding: np.ndarray, labels: np.ndarray) -> None:
     ax.set_xlabel("UMAP 1")
     ax.set_ylabel("UMAP 2")
 
-    mngs.io.save(fig, CONFIG.PATH.MNIST.FIGURES + "umap.jpg", symlink_from_cwd=True)
+    scitex.io.save(fig, CONFIG.PATH.MNIST.FIGURES + "umap.jpg", symlink_from_cwd=True)
 
 
 def main(args: argparse.Namespace) -> Optional[int]:
-    train_data = mngs.io.load(CONFIG.PATH.MNIST.FLATTENED.TRAIN)
-    train_labels = mngs.io.load(CONFIG.PATH.MNIST.LABELS.TRAIN)
+    train_data = scitex.io.load(CONFIG.PATH.MNIST.FLATTENED.TRAIN)
+    train_labels = scitex.io.load(CONFIG.PATH.MNIST.LABELS.TRAIN)
     embedding = create_umap_embedding(train_data)
     plot_umap(embedding, train_labels)
     return 0
@@ -65,19 +65,19 @@ def parse_args() -> argparse.Namespace:
         description="Create UMAP visualization of MNIST"
     )
     args = parser.parse_args()
-    mngs.str.printc(args, c="yellow")
+    scitex.str.printc(args, c="yellow")
     return args
 
 
 def run_main() -> None:
-    """Initialize mngs framework, run main function, and cleanup.
+    """Initialize scitex framework, run main function, and cleanup.
 
-    mngs framework manages:
+    scitex framework manages:
       - Parameters defined in yaml files under `./config dir`
       - Setting saving directory (/path/to/file.py -> /path/to/file.py_out/)
       - Symlink for `./data` directory
       - Logging timestamp, stdout, stderr, and parameters
-      - Matplotlib configurations (also, `mngs.plt` will track plotting data)
+      - Matplotlib configurations (also, `scitex.plt` will track plotting data)
       - Random seeds
 
     THUS, DO NOT MODIFY THIS RUN_MAIN FUNCTION
@@ -88,7 +88,7 @@ def run_main() -> None:
 
     global CONFIG, CC, sys, plt
     args = parse_args()
-    CONFIG, sys.stdout, sys.stderr, plt, CC = mngs.gen.start(
+    CONFIG, sys.stdout, sys.stderr, plt, CC = scitex.gen.start(
         sys,
         plt,
         args=args,
@@ -98,7 +98,7 @@ def run_main() -> None:
 
     exit_status = main(args)
 
-    mngs.gen.close(
+    scitex.gen.close(
         CONFIG,
         exit_status=exit_status,
     )

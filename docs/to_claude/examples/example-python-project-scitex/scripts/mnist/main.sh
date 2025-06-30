@@ -1,7 +1,7 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
 # Timestamp: "2025-02-15 02:01:51 (ywatanabe)"
-# File: /home/ywatanabe/proj/example-mngs-project/scripts/mnist/main.sh
+# File: /home/ywatanabe/proj/example-scitex-project/scripts/mnist/main.sh
 
 THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_PATH="$0.log"
