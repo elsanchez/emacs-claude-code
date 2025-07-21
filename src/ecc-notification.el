@@ -26,12 +26,32 @@
   "List of notification methods to use."
   :type '(set (const :tag "Audible bell" bell)
               (const :tag "Mode line flash" flash)
-              (const :tag "Echo area message" message))
+              (const :tag "Echo area message" message)
+              (const :tag "Thunder icon" thunder)
+              (const :tag "Desktop notification" desktop))
   :group 'ecc)
 
 (defcustom --ecc-notification-throttle-duration 2.0
   "Minimum interval between notifications in seconds."
   :type 'number
+  :group 'ecc)
+
+(defcustom --ecc-notification-state-specific-methods
+  '((:error-state . (bell message desktop))
+    (:timeout . (bell message desktop))
+    (:y/n . (flash thunder))
+    (:y/y/n . (flash thunder))
+    (:waiting . (thunder))
+    (:thinking . (message)))
+  "State-specific notification methods for better UX."
+  :type '(alist :key-type symbol 
+                :value-type (set (const bell) (const flash) (const message) 
+                                (const thunder) (const desktop)))
+  :group 'ecc)
+
+(defcustom --ecc-notification-priority-states '(:error-state :timeout :y/n :y/y/n)
+  "States that should trigger immediate notifications regardless of throttle."
+  :type '(set symbol)
   :group 'ecc)
 
 ;; 3. Variables

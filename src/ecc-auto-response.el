@@ -54,6 +54,16 @@
   :type 'float
   :group 'ecc)
 
+(defcustom --ecc-auto-response-adaptive-throttling t
+  "Whether to use adaptive throttling based on buffer activity."
+  :type 'boolean
+  :group 'ecc)
+
+(defcustom --ecc-auto-response-max-throttle-duration 30.0
+  "Maximum throttle duration for adaptive throttling."
+  :type 'float
+  :group 'ecc)
+
 (defcustom --ecc-auto-response-accumulation-threshold 5
   "Maximum number of responses allowed within accumulation window."
   :type 'number

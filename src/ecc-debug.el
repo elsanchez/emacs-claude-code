@@ -42,6 +42,9 @@
   (when --ecc-debug-enabled
     (apply #'message (concat --ecc-debug-prefix format-string) args)))
 
+;; Alias for compatibility with session management modules
+(defalias 'ecc-debug-message '--ecc-debug-message)
+
 ;; 6. Helper/Utility Functions
 ;; ----------------------------------------
 ;; No helper functions in this file
