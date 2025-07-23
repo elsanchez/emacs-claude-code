@@ -15,6 +15,7 @@
 (require 'cl-lib)
 (require 'ecc-debug)
 (require 'ecc-vterm-utils)
+(require 'ecc-eat-utils nil t)
 
 ;; 2. Configuration
 ;; ----------------------------------------
@@ -122,6 +123,11 @@ COMMAND is the string to send to the buffer."
     (when (fboundp 'vterm-send-string)
       (vterm-send-string command)
       (vterm-send-return)))
+   ((derived-mode-p 'eat-mode)
+    (when (and (bound-and-true-p eat-terminal)
+               eat-terminal)
+      (eat-term-send-string eat-terminal command)
+      (eat-term-send-string eat-terminal (kbd "RET"))))
    ((derived-mode-p 'comint-mode)
     (goto-char (point-max))
     (insert command)
