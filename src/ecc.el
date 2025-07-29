@@ -28,6 +28,7 @@
 (require 'ecc-send-verification)
 (require 'ecc-auto-response)
 (require 'ecc-vterm-utils)
+(require 'ecc-multi-agent)
 (require 'ecc-list)
 (require 'ecc-auto-periodical)
 (require 'ecc-vterm-yank-as-file)
@@ -132,6 +133,34 @@ This function stops and restarts all timers to resolve timer-related issues."
     (list :refreshed-count refreshed-count
           :active-buffers (length active-buffers))))
 
+
+;; 5. Keybindings
+;; ----------------------------------------
+
+(defvar ecc-multi-agent-keymap (make-sparse-keymap)
+  "Keymap for multi-agent commands.")
+
+;; Multi-agent commands
+(define-key ecc-multi-agent-keymap (kbd "m") #'ecc-multi-agent-menu)
+(define-key ecc-multi-agent-keymap (kbd "g") #'ecc-multi-agent-setup-general)
+(define-key ecc-multi-agent-keymap (kbd "e") #'ecc-multi-agent-setup-ecc-tracker)
+(define-key ecc-multi-agent-keymap (kbd "c") #'ecc-multi-agent-setup-custom-projects)
+(define-key ecc-multi-agent-keymap (kbd "n") #'ecc-multi-agent-create-agent)
+(define-key ecc-multi-agent-keymap (kbd "l") #'ecc-multi-agent-list-agents)
+(define-key ecc-multi-agent-keymap (kbd "s") #'ecc-multi-agent-switch-to-agent)
+(define-key ecc-multi-agent-keymap (kbd "a") #'ecc-multi-agent-send-to-all)
+(define-key ecc-multi-agent-keymap (kbd "k") #'ecc-multi-agent-kill-agent)
+(define-key ecc-multi-agent-keymap (kbd "K") #'ecc-multi-agent-kill-all-agents)
+
+;; Main ECC keymap
+(defvar ecc-keymap (make-sparse-keymap)
+  "Main keymap for emacs-claude-code.")
+
+(define-key ecc-keymap (kbd "m") ecc-multi-agent-keymap)
+(define-key ecc-keymap (kbd "r") #'ecc-refresh-timers)
+
+;; Global binding (you may want to customize this)
+(global-set-key (kbd "C-c e") ecc-keymap)
 
 (provide 'ecc)
 

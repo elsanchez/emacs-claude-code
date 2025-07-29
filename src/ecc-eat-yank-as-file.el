@@ -37,10 +37,10 @@ Example usage:
   ;; Sends \"Read /path/to/file.tmp\" to eat"
   (interactive)
   (if (not (derived-mode-p 'eat-mode))
-      (message "This command only works in eat-mode")
+      (progn (message "This command only works in eat-mode") nil)
     (let ((content (--ecc-get-kill-ring-content)))
       (if (not content)
-          (message "Kill ring is empty")
+          (progn (message "Kill ring is empty") nil)
         (if remote-info
             ;; remote-info provided - check if localhost or remote
             (if (let ((host (cdr (assoc 'host remote-info))))
@@ -71,9 +71,6 @@ Example usage:
                                                        temp-file)
                     (--ecc-send-read-command-eat temp-file))))
             (message "ecc-remote not available")))))))
-
-;; Alias for backward compatibility
-(defalias 'ecc-eat-yank-as-file 'emacs-claude-code-eat-yank-as-file)
 
 ;; 2. Core functions
 ;; ----------------------------------------
@@ -118,7 +115,7 @@ Returns the content as a string, or nil if kill-ring is empty."
              (bound-and-true-p eat-terminal))
         (progn
           (eat-term-send-string eat-terminal command)
-          (eat-term-send-string eat-terminal (kbd "RET")))
+          (eat-term-send-string eat-terminal "\r"))
       (message "eat terminal not available, command would be: %s" command))))
 
 (defun --ecc-yank-to-remote-with-ssh-info (content ssh-info)
@@ -154,6 +151,8 @@ Returns local file path on remote host on success, nil on failure."
 ;; (with-eval-after-load 'eat
 ;;   (ecc-eat-yank-as-file-setup-keybinding))
 
+;; Backward compatibility alias
+(defalias 'ecc-eat-yank-as-file 'emacs-claude-code-eat-yank-as-file)
 
 (provide 'ecc-eat-yank-as-file)
 

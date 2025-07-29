@@ -14,14 +14,14 @@
 ;; ----------------------------------------
 
 (defcustom --ecc-eat-yank-extension-patterns
-  '(("py" . "^\\(import\\|from\\|def\\|class\\|if __name__ ==\\)")
+  '(("sh" . "^#!.*sh")
+    ("py" . "^\\(import\\|from\\|def\\|class\\|if __name__ ==\\)")
     ("js"
      . "\\(function\\|const\\|let\\|var\\|=>\\|import\\|export\\)")
     ("html" . "\\(<html\\|<!DOCTYPE\\|<body\\|<div\\|<script\\)")
     ("css" . "\\([.#]?[a-zA-Z0-9_-]+\\s-*{\\)")
     ("el"
      . "\\((defun\\|(defvar\\|(defcustom\\|(require\\|(provide\\)")
-    ("sh" . "\\(^#!.*sh\\|function\\s-+[a-zA-Z0-9_-]+\\s-*(\\)")
     ("txt" . ".*"))
   "Alist mapping file extensions to regex patterns for content detection."
   :type '(alist :key-type string :value-type regexp)
@@ -124,7 +124,10 @@
     ;; Replace problematic blinking character with consistent asterisk
     (let ((display-table (make-display-table)))
       (aset display-table #x23fa [?✽])  ; Replace ⏺ (U+23FA) with ✽
-      (setq-local buffer-display-table display-table))))
+      (setq-local buffer-display-table display-table))
+    
+    ;; Return nil explicitly for tests
+    nil))
 
 (defun --ecc-eat-setup-buffer ()
   "Set up eat buffer with optimizations and configurations."
